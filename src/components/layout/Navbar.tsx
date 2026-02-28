@@ -7,7 +7,7 @@ import { Menu, X, Bell, ChevronDown, LogOut, User, LayoutDashboard } from "lucid
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/components/auth/AuthProvider";
-import { getInitials } from "@/lib/utils";
+import { cn, getInitials } from "@/lib/utils";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -23,26 +23,29 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 shadow-sm">
       <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center gap-6">
+        {/* Logo */}
+        <div className="flex items-center gap-7">
           <Link href="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-white font-bold text-sm">FH</span>
+            <div className="h-8 w-8 rounded-lg bg-navy flex items-center justify-center">
+              <span className="text-primary font-bold text-sm">FH</span>
             </div>
-            <span className="font-bold text-xl">FractionalHub</span>
+            <span className="font-bold text-lg text-foreground">FractionalHub</span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-1">
+          {/* Desktop nav */}
+          <div className="hidden md:flex items-center gap-0.5">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors hover:text-primary ${
+                className={cn(
+                  "px-3 py-2 rounded-md text-sm font-medium transition-colors",
                   pathname === link.href
                     ? "text-primary"
-                    : "text-muted-foreground"
-                }`}
+                    : "text-muted-foreground hover:text-foreground"
+                )}
               >
                 {link.label}
               </Link>
@@ -50,6 +53,7 @@ export default function Navbar() {
           </div>
         </div>
 
+        {/* Desktop actions */}
         <div className="hidden md:flex items-center gap-3">
           {supabaseUser ? (
             <>
@@ -61,11 +65,11 @@ export default function Navbar() {
               <div className="relative">
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="flex items-center gap-2 p-1 rounded-md hover:bg-accent"
+                  className="flex items-center gap-2 p-1 rounded-md hover:bg-muted transition-colors"
                 >
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={profile?.profile_photo_url} />
-                    <AvatarFallback>
+                    <AvatarFallback className="bg-navy text-white text-xs font-semibold">
                       {profile ? getInitials(profile.first_name, profile.last_name) : "U"}
                     </AvatarFallback>
                   </Avatar>
@@ -73,10 +77,10 @@ export default function Navbar() {
                   <ChevronDown className="h-4 w-4 text-muted-foreground" />
                 </button>
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-background border rounded-md shadow-lg py-1">
+                  <div className="absolute right-0 mt-2 w-48 bg-white border rounded-xl shadow-lg py-1">
                     <Link
                       href="/dashboard"
-                      className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-accent"
+                      className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-muted transition-colors"
                       onClick={() => setDropdownOpen(false)}
                     >
                       <LayoutDashboard className="h-4 w-4" />
@@ -84,7 +88,7 @@ export default function Navbar() {
                     </Link>
                     <Link
                       href="/dashboard/profile"
-                      className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-accent"
+                      className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-muted transition-colors"
                       onClick={() => setDropdownOpen(false)}
                     >
                       <User className="h-4 w-4" />
@@ -93,7 +97,7 @@ export default function Navbar() {
                     <hr className="my-1" />
                     <button
                       onClick={() => { signOut(); setDropdownOpen(false); }}
-                      className="flex w-full items-center gap-2 px-4 py-2 text-sm hover:bg-accent text-destructive"
+                      className="flex w-full items-center gap-2 px-4 py-2 text-sm hover:bg-muted transition-colors text-destructive"
                     >
                       <LogOut className="h-4 w-4" />
                       Sign Out
@@ -104,31 +108,38 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <Button variant="ghost" asChild>
+              <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground">
                 <Link href="/auth/login">Log in</Link>
               </Button>
-              <Button asChild>
+              <Button size="sm" asChild className="bg-primary hover:bg-primary/90 text-white">
                 <Link href="/auth/signup">Get Started</Link>
               </Button>
             </>
           )}
         </div>
 
+        {/* Mobile toggle */}
         <button
-          className="md:hidden"
+          className="md:hidden p-1 rounded-md hover:bg-muted"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
-          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
+      {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t bg-background px-4 py-4 space-y-2">
+        <div className="md:hidden border-t bg-white px-4 py-4 space-y-1">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-accent"
+              className={cn(
+                "block px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                pathname === link.href
+                  ? "text-primary bg-primary/5"
+                  : "text-muted-foreground hover:bg-muted"
+              )}
               onClick={() => setMobileOpen(false)}
             >
               {link.label}
@@ -139,14 +150,14 @@ export default function Navbar() {
               <>
                 <Link
                   href="/dashboard"
-                  className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-accent"
+                  className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-muted"
                   onClick={() => setMobileOpen(false)}
                 >
                   Dashboard
                 </Link>
                 <button
                   onClick={() => { signOut(); setMobileOpen(false); }}
-                  className="block w-full text-left px-3 py-2 rounded-md text-sm font-medium text-destructive hover:bg-accent"
+                  className="block w-full text-left px-3 py-2 rounded-md text-sm font-medium text-destructive hover:bg-muted"
                 >
                   Sign Out
                 </button>
@@ -155,14 +166,14 @@ export default function Navbar() {
               <>
                 <Link
                   href="/auth/login"
-                  className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-accent"
+                  className="block px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:bg-muted"
                   onClick={() => setMobileOpen(false)}
                 >
                   Log in
                 </Link>
                 <Link
                   href="/auth/signup"
-                  className="block px-3 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground text-center"
+                  className="block px-3 py-2 rounded-md text-sm font-medium bg-primary text-white text-center"
                   onClick={() => setMobileOpen(false)}
                 >
                   Get Started

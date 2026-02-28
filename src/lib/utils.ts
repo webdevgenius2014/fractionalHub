@@ -56,9 +56,11 @@ export function slugify(text: string): string {
 
 export const ROLE_OPTIONS = ["CTO", "CMO", "CPO", "CFO", "COO", "CHRO", "CRO"] as const;
 export const INDUSTRY_OPTIONS = [
-  "Technology", "Finance", "Healthcare", "E-commerce", "SaaS", "Fintech",
-  "EdTech", "HealthTech", "Media", "Retail", "Manufacturing", "Real Estate",
-  "Legal", "Consulting", "Non-profit",
+  "SaaS", "Fintech", "Healthcare", "E-commerce", "Marketplace", "Deep Tech",
+  "EdTech", "Media", "Retail", "Manufacturing", "Real Estate", "Consulting",
+] as const;
+export const COMPANY_STAGE_OPTIONS = [
+  "Pre-seed", "Seed", "Series A", "Series B+",
 ] as const;
 export const COMPANY_SIZE_OPTIONS = [
   "1-10", "11-50", "51-200", "201-500", "501-1000", "1000+",
