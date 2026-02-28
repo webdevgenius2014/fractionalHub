@@ -213,16 +213,20 @@ export interface Review {
 export interface Database {
   public: {
     Tables: {
-      users: { Row: User; Insert: Omit<User, "id" | "created_at" | "updated_at">; Update: Partial<User> };
-      candidate_profiles: { Row: CandidateProfile; Insert: Omit<CandidateProfile, "id" | "created_at" | "updated_at">; Update: Partial<CandidateProfile> };
-      company_profiles: { Row: CompanyProfile; Insert: Omit<CompanyProfile, "id" | "created_at" | "updated_at">; Update: Partial<CompanyProfile> };
-      jobs: { Row: Job; Insert: Omit<Job, "id" | "created_at" | "updated_at">; Update: Partial<Job> };
-      applications: { Row: Application; Insert: Omit<Application, "id" | "created_at" | "updated_at">; Update: Partial<Application> };
-      messages: { Row: Message; Insert: Omit<Message, "id" | "created_at" | "updated_at">; Update: Partial<Message> };
-      transactions: { Row: Transaction; Insert: Omit<Transaction, "id" | "created_at" | "updated_at">; Update: Partial<Transaction> };
-      commission_config: { Row: CommissionConfig; Insert: Omit<CommissionConfig, "id" | "created_at" | "updated_at">; Update: Partial<CommissionConfig> };
-      notifications: { Row: Notification; Insert: Omit<Notification, "id" | "created_at" | "updated_at">; Update: Partial<Notification> };
-      reviews: { Row: Review; Insert: Omit<Review, "id" | "created_at" | "updated_at">; Update: Partial<Review> };
+      users: { Row: User; Insert: Omit<User, "id" | "created_at" | "updated_at">; Update: Partial<User>; Relationships: [] };
+      candidate_profiles: { Row: CandidateProfile; Insert: Omit<CandidateProfile, "id" | "created_at" | "updated_at">; Update: Partial<CandidateProfile>; Relationships: [] };
+      company_profiles: { Row: CompanyProfile; Insert: Omit<CompanyProfile, "id" | "created_at" | "updated_at">; Update: Partial<CompanyProfile>; Relationships: [] };
+      jobs: { Row: Job; Insert: Omit<Job, "id" | "created_at" | "updated_at">; Update: Partial<Job>; Relationships: [] };
+      applications: { Row: Application; Insert: Omit<Application, "id" | "created_at" | "updated_at">; Update: Partial<Application>; Relationships: [] };
+      messages: { Row: Message; Insert: Omit<Message, "id" | "created_at" | "updated_at">; Update: Partial<Message>; Relationships: [] };
+      transactions: { Row: Transaction; Insert: Omit<Transaction, "id" | "created_at" | "updated_at">; Update: Partial<Transaction>; Relationships: [] };
+      commission_config: { Row: CommissionConfig; Insert: Omit<CommissionConfig, "id" | "created_at" | "updated_at">; Update: Partial<CommissionConfig>; Relationships: [] };
+      notifications: { Row: Notification; Insert: Omit<Notification, "id" | "created_at" | "updated_at">; Update: Partial<Notification>; Relationships: [] };
+      reviews: { Row: Review; Insert: Omit<Review, "id" | "created_at" | "updated_at">; Update: Partial<Review>; Relationships: [] };
     };
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
+    Enums: Record<string, never>;
+    CompositeTypes: Record<string, never>;
   };
 }
