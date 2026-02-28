@@ -174,7 +174,7 @@ export interface CommissionConfig {
   company_commission_percentage: number;
   candidate_commission_percentage: number;
   is_active: boolean;
-  notes?: string;
+  notes?: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -213,16 +213,16 @@ export interface Review {
 export interface Database {
   public: {
     Tables: {
-      users: { Row: User; Insert: Omit<User, "id" | "created_at" | "updated_at">; Update: Partial<User>; Relationships: [] };
-      candidate_profiles: { Row: CandidateProfile; Insert: Omit<CandidateProfile, "id" | "created_at" | "updated_at">; Update: Partial<CandidateProfile>; Relationships: [] };
-      company_profiles: { Row: CompanyProfile; Insert: Omit<CompanyProfile, "id" | "created_at" | "updated_at">; Update: Partial<CompanyProfile>; Relationships: [] };
-      jobs: { Row: Job; Insert: Omit<Job, "id" | "created_at" | "updated_at">; Update: Partial<Job>; Relationships: [] };
-      applications: { Row: Application; Insert: Omit<Application, "id" | "created_at" | "updated_at">; Update: Partial<Application>; Relationships: [] };
-      messages: { Row: Message; Insert: Omit<Message, "id" | "created_at" | "updated_at">; Update: Partial<Message>; Relationships: [] };
-      transactions: { Row: Transaction; Insert: Omit<Transaction, "id" | "created_at" | "updated_at">; Update: Partial<Transaction>; Relationships: [] };
-      commission_config: { Row: CommissionConfig; Insert: Omit<CommissionConfig, "id" | "created_at" | "updated_at">; Update: Partial<CommissionConfig>; Relationships: [] };
-      notifications: { Row: Notification; Insert: Omit<Notification, "id" | "created_at" | "updated_at">; Update: Partial<Notification>; Relationships: [] };
-      reviews: { Row: Review; Insert: Omit<Review, "id" | "created_at" | "updated_at">; Update: Partial<Review>; Relationships: [] };
+      users: { Row: User; Insert: Partial<User>; Update: Partial<User>; Relationships: [] };
+      candidate_profiles: { Row: CandidateProfile; Insert: Partial<CandidateProfile>; Update: Partial<CandidateProfile>; Relationships: [] };
+      company_profiles: { Row: CompanyProfile; Insert: Partial<CompanyProfile>; Update: Partial<CompanyProfile>; Relationships: [] };
+      jobs: { Row: Job; Insert: Partial<Job>; Update: Partial<Job>; Relationships: [] };
+      applications: { Row: Application; Insert: Partial<Application>; Update: Partial<Application>; Relationships: [] };
+      messages: { Row: Message; Insert: Partial<Message>; Update: Partial<Message>; Relationships: [] };
+      transactions: { Row: Transaction; Insert: Partial<Transaction>; Update: Partial<Transaction>; Relationships: [] };
+      commission_config: { Row: CommissionConfig; Insert: Partial<CommissionConfig>; Update: Partial<CommissionConfig>; Relationships: [] };
+      notifications: { Row: Notification; Insert: Partial<Notification>; Update: Partial<Notification>; Relationships: [] };
+      reviews: { Row: Review; Insert: Partial<Review>; Update: Partial<Review>; Relationships: [] };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

@@ -113,7 +113,7 @@ export default function NewJobPage() {
       return;
     }
 
-    router.push(`/dashboard/jobs/${job.id}/applications`);
+    router.push(`/dashboard/jobs/${job!.id}/applications`);
   };
 
   return (
