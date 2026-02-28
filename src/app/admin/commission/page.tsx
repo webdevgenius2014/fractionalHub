@@ -37,11 +37,12 @@ export default function AdminCommissionPage() {
       .eq("is_active", true)
       .single();
 
-    if (data) {
-      setConfig(data as CommissionConfig);
-      setCompanyPct(data.company_commission_percentage.toString());
-      setCandidatePct(data.candidate_commission_percentage.toString());
-      setNotes(data.notes ?? "");
+    const cfg = data as CommissionConfig | null;
+    if (cfg) {
+      setConfig(cfg);
+      setCompanyPct(cfg.company_commission_percentage.toString());
+      setCandidatePct(cfg.candidate_commission_percentage.toString());
+      setNotes(cfg.notes ?? "");
     }
     setLoading(false);
   };
